@@ -248,105 +248,12 @@ export const ApiDocumentation = () => {
                 </Card>
               </div>
 
-              {/* Analytics */}
-              <div id="get-analytics" className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
-                  <BarChart3 className="h-5 w-5 mr-2 text-primary" />
-                  3. Get Question Analytics
-                </h3>
-                <div className="flex items-center space-x-2 mb-4">
-                  <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">GET</Badge>
-                  <code className="code-inline">/api/questions/analytics</code>
-                </div>
-                
-                <Card className="mb-4">
-                  <CardContent className="p-6">
-                    <p className="text-muted-foreground mb-4">
-                      Retrieves analytics data for questions including accuracy rates and costs.
-                    </p>
-                    
-                    <CodeBlock
-                      code={`{
-  "success": true,
-  "data": {
-    "totalQuestions": 150,
-    "totalCost": 0.75,
-    "exaAccuracy": 0.85,
-    "perplexityAccuracy": 0.82,
-    "gptAccuracy": 0.88,
-    "grokAccuracy": 0.8,
-    "geminiAccuracy": 0.83,
-    "consensusAccuracy": 0.92
-  }
-}`}
-                      title="Response"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Scheduled Requests */}
-              <div id="scheduled-requests" className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
-                  <Calendar className="h-5 w-5 mr-2 text-primary" />
-                  4. Get Scheduled Requests
-                </h3>
-                <div className="flex items-center space-x-2 mb-4">
-                  <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">GET</Badge>
-                  <code className="code-inline">/api/scheduled-requests</code>
-                </div>
-                
-                <Card className="mb-4">
-                  <CardContent className="p-6">
-                    <p className="text-muted-foreground mb-4">
-                      Retrieves scheduled requests with optional filtering.
-                    </p>
-                    
-                    <h4 className="font-semibold mb-3">Status Values</h4>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      <Badge variant="outline">pending</Badge>
-                      <Badge variant="outline">processing</Badge>
-                      <Badge variant="outline">completed</Badge>
-                      <Badge variant="outline">failed</Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-
-              {/* Cancel Scheduled Request */}
-              <div id="cancel-request" className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
-                  <Trash2 className="h-5 w-5 mr-2 text-primary" />
-                  5. Cancel Scheduled Request
-                </h3>
-                <div className="flex items-center space-x-2 mb-4">
-                  <Badge className="bg-red-100 text-red-800 hover:bg-red-100">DELETE</Badge>
-                  <code className="code-inline">/api/scheduled-requests/:requestId</code>
-                </div>
-                
-                <Card className="mb-4">
-                  <CardContent className="p-6">
-                    <p className="text-muted-foreground mb-4">
-                      Cancels a pending scheduled request.
-                    </p>
-                    
-                    <CodeBlock
-                      code={`{
-  "success": true,
-  "message": "Scheduled request cancelled successfully",
-  "requestId": "507f1f77bcf86cd799439011"
-}`}
-                      title="Response"
-                    />
-                  </CardContent>
-                </Card>
-              </div>
 
               {/* Health Check */}
               <div id="health-check" className="mb-8">
                 <h3 className="text-xl font-semibold mb-4 flex items-center">
                   <Activity className="h-5 w-5 mr-2 text-primary" />
-                  6. Health Check
+                  3. Health Check
                 </h3>
                 <div className="flex items-center space-x-2 mb-4">
                   <Badge className="bg-blue-100 text-blue-800 hover:bg-blue-100">GET</Badge>
