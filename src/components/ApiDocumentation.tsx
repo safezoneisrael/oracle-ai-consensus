@@ -170,6 +170,8 @@ export const ApiDocumentation = () => {
   "grok": 1,
   "gemini": 1,
   "final": "Paris",
+  "consensusStatus": "consensus",
+  "consensusIndex": 1,
   "exa_raw": "{\\"answer\\": \\"Paris\\"}",
   "perplexity_raw": "{\\"answer\\": \\"Paris\\"}",
   "gpt_raw": "{\\"answer\\": \\"Paris\\"}",
@@ -180,6 +182,95 @@ export const ApiDocumentation = () => {
   "question_file_name": "RAIN_geography_quiz_001"
 }`}
                     />
+
+                    <Separator className="my-6" />
+
+                    <h4 id="response-parameters" className="font-semibold mb-3">
+                      Response Parameters
+                    </h4>
+                    <div className="space-y-4">
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h5 className="font-medium mb-2">consensusStatus</h5>
+                        <p className="text-sm text-muted-foreground mb-2">
+                          Indicates the consensus status of the AI models:
+                        </p>
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant="outline"
+                              className="bg-green-50 text-green-700"
+                            >
+                              consensus
+                            </Badge>
+                            <span className="text-sm">
+                              All models reached agreement
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant="outline"
+                              className="bg-yellow-50 text-yellow-700"
+                            >
+                              no_consensus
+                            </Badge>
+                            <span className="text-sm">
+                              Models disagreed, no clear consensus
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant="outline"
+                              className="bg-red-50 text-red-700"
+                            >
+                              no_answer
+                            </Badge>
+                            <span className="text-sm">
+                              Models could not provide valid answers
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="p-4 bg-muted/30 rounded-lg">
+                        <h5 className="font-medium mb-2">consensusIndex</h5>
+                        <p className="text-sm text-muted-foreground mb-2">
+                          The index of the consensus answer in the options
+                          array. Use this instead of "final" when
+                          consensusStatus is "no_consensus" or "no_answer":
+                        </p>
+                        <div className="space-y-1">
+                          <div className="flex items-center space-x-2">
+                            <Badge variant="outline">0-9</Badge>
+                            <span className="text-sm">
+                              Index of the consensus answer (0-based)
+                            </span>
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <Badge
+                              variant="outline"
+                              className="bg-red-50 text-red-700"
+                            >
+                              -1
+                            </Badge>
+                            <span className="text-sm">
+                              No valid consensus reached
+                            </span>
+                          </div>
+                        </div>
+                        <div className="mt-3 p-3 bg-blue-50 border-l-4 border-blue-400 rounded">
+                          <p className="text-sm text-blue-700">
+                            <strong>Retry Strategy:</strong> First, check{" "}
+                            <code>consensusIndex</code>. If it's <code>-1</code>
+                            , this indicates no valid consensus was reached and
+                            you should retry. Then check{" "}
+                            <code>consensusStatus</code>: for "no_answer"
+                            status, the system will automatically retry; for
+                            "no_consensus" status, you can manually retry the
+                            request.
+                          </p>
+                        </div>
+                      </div>
+                    </div>
                   </CardContent>
                 </Card>
               </div>
@@ -209,10 +300,14 @@ export const ApiDocumentation = () => {
                         </div>
                         <div className="ml-3">
                           <p className="text-sm text-blue-700">
-                            <strong>Progressive Retry Schedule:</strong> If the
-                            response contains <code>"final": "No Answer"</code>,
-                            the system will automatically schedule retries with
-                            increasing delays.
+                            <strong>Progressive Retry Schedule:</strong> First
+                            check if <code>consensusIndex</code> is{" "}
+                            <code>-1</code>. If it is, then check{" "}
+                            <code>consensusStatus</code>: if it's{" "}
+                            <code>"no_answer"</code>, the system will
+                            automatically schedule retries with increasing
+                            delays. For <code>"no_consensus"</code>, you can
+                            manually retry the request.
                           </p>
                         </div>
                       </div>
@@ -238,9 +333,11 @@ export const ApiDocumentation = () => {
                       </div>
                     </div>
 
-                    <h4 className="font-semibold mb-3">
-                      Retry Response Example
-                    </h4>
+                    <h4 className="font-semibold mb-3">Response Examples</h4>
+
+                    <h5 className="font-medium mb-2">
+                      Automatic Retry (no_answer)
+                    </h5>
                     <CodeBlock
                       code={`{
   "exa": -1,
@@ -249,10 +346,30 @@ export const ApiDocumentation = () => {
   "grok": -1,
   "gemini": -1,
   "final": "No Answer",
+  "consensusStatus": "no_answer",
+  "consensusIndex": -1,
   "retry_scheduled": true,
   "retry_count": 1,
   "retry_at": "2024-01-15T10:05:00.000Z",
   "message": "No consensus reached. Retry scheduled in 5 minutes."
+}`}
+                    />
+
+                    <h5 className="font-medium mb-2 mt-4">
+                      Manual Retry (no_consensus)
+                    </h5>
+                    <CodeBlock
+                      code={`{
+  "exa": 1,
+  "perplexity": 2,
+  "gpt": 1,
+  "grok": 3,
+  "gemini": 1,
+  "final": "Paris",
+  "consensusStatus": "no_consensus",
+  "consensusIndex": 1,
+  "retry_scheduled": false,
+  "message": "Models disagreed. You can manually retry."
 }`}
                     />
                   </CardContent>
@@ -434,7 +551,17 @@ result = api.resolve_question(
     "What is the capital of France?",
     ["London", "Paris", "Berlin", "Madrid"]
 )
-print(f"Consensus answer: {result['final']}")`}
+
+# Check consensus status and use appropriate answer
+if result['consensusStatus'] == 'consensus':
+    print(f"Consensus answer: {result['final']}")
+    print(f"Answer index: {result['consensusIndex']}")
+elif result['consensusStatus'] == 'no_consensus':
+    print(f"No consensus reached. Best answer: {result['final']}")
+    print(f"Answer index: {result['consensusIndex']}")
+else:  # no_answer
+    print("No valid answer from any model")
+    print(f"Answer index: {result['consensusIndex']}")`}
                   language="python"
                 />
               </div>
