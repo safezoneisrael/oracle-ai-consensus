@@ -78,7 +78,7 @@ export const ApiDocumentation = () => {
             <section id="base-url">
               <h2 className="text-2xl font-bold mb-4">Base URL</h2>
               <CodeBlock
-                code="https://olympus-user.prodex.com/api/"
+                code="https://dev-api.olympus-demo.com"
                 language="text"
               />
             </section>
@@ -452,7 +452,7 @@ export const ApiDocumentation = () => {
                   code={`const axios = require("axios");
 
 const oracleAPI = axios.create({
-  baseURL: "https://olympus-user.prodex.com/api/",
+  baseURL: "https://dev-api.olympus-demo.com",
   headers: {
     Authorization: \`Bearer \${process.env.API_TOKEN}\`,
     "Content-Type": "application/json",
@@ -533,7 +533,7 @@ class OracleAPI:
         return response.json()
 
 # Usage example
-api = OracleAPI('https://olympus-user.prodex.com/api/', os.getenv('API_TOKEN'))
+api = OracleAPI('https://dev-api.olympus-demo.com', os.getenv('API_TOKEN'))
 
 result = api.resolve_question(
     "What is the capital of France?",
