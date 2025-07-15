@@ -1,20 +1,21 @@
-import { Badge } from '@/components/ui/badge';
-import { Card, CardContent } from '@/components/ui/card';
-import { Separator } from '@/components/ui/separator';
-import { CodeBlock } from './CodeBlock';
-import { TableOfContents } from './TableOfContents';
-import { 
-  Database, 
-  Zap, 
-  Shield, 
-  Clock, 
-  BarChart3, 
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { CodeBlock } from "./CodeBlock";
+import { TableOfContents } from "./TableOfContents";
+import {
+  Database,
+  Zap,
+  Shield,
+  Clock,
+  BarChart3,
   Settings,
   FileText,
   Calendar,
   Trash2,
-  Activity
-} from 'lucide-react';
+  Activity,
+  RefreshCw,
+} from "lucide-react";
 
 export const ApiDocumentation = () => {
   return (
@@ -27,9 +28,15 @@ export const ApiDocumentation = () => {
               <Database className="h-8 w-8 text-primary-foreground" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold text-primary-foreground">Oracle API Documentation</h1>
+              <h1
+                id="oracle-api-documentation"
+                className="text-3xl font-bold text-primary-foreground"
+              >
+                Oracle API Documentation
+              </h1>
               <p className="text-primary-foreground/80 mt-2">
-                Multi-model AI consensus API for question resolution and scheduling
+                Multi-model AI consensus API for question resolution and
+                scheduling
               </p>
             </div>
           </div>
@@ -47,23 +54,31 @@ export const ApiDocumentation = () => {
           <div className="lg:col-span-3 space-y-8">
             {/* Overview */}
             <section id="overview">
-              <h2 className="text-2xl font-bold mb-4">Overview</h2>
+              <h2 id="overview" className="text-2xl font-bold mb-4">
+                Overview
+              </h2>
               <Card>
                 <CardContent className="p-6">
                   <p className="text-muted-foreground mb-4">
-                    The Oracle API provides endpoints for resolving questions using multiple AI models 
-                    (Exa, Perplexity, GPT, Grok, and Gemini) and managing scheduled requests. 
-                    The API supports both immediate resolution and scheduled execution of oracle queries.
+                    The Oracle API provides endpoints for resolving questions
+                    using multiple AI models (Exa, Perplexity, GPT, Grok, and
+                    Gemini) and managing scheduled requests. The API supports
+                    both immediate resolution and scheduled execution of oracle
+                    queries.
                   </p>
-                  
+
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
                       <Zap className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-medium">Multi-model AI</span>
+                      <span className="text-sm font-medium">
+                        Multi-model AI
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
                       <Clock className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-medium">Scheduled Requests</span>
+                      <span className="text-sm font-medium">
+                        Scheduled Requests
+                      </span>
                     </div>
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
                       <BarChart3 className="h-5 w-5 text-primary" />
@@ -76,61 +91,52 @@ export const ApiDocumentation = () => {
 
             {/* Base URL */}
             <section id="base-url">
-              <h2 className="text-2xl font-bold mb-4">Base URL</h2>
+              <h2 id="base-url" className="text-2xl font-bold mb-4">
+                Base URL
+              </h2>
               <CodeBlock
                 code="https://dev-api.olympus-demo.com"
                 language="text"
               />
             </section>
 
-            {/* Authentication */}
-            <section id="authentication">
-              <h2 className="text-2xl font-bold mb-4">
-                <Shield className="inline h-6 w-6 mr-2" />
-                Authentication
-              </h2>
-              <Card>
-                <CardContent className="p-6">
-                  <p className="text-muted-foreground mb-4">
-                    All endpoints require authentication. Include your authentication token in the request headers:
-                  </p>
-                  <CodeBlock
-                    code="Authorization: Bearer <your-token>"
-                    language="text"
-                    title="Request Header"
-                  />
-                </CardContent>
-              </Card>
-            </section>
-
             {/* Endpoints */}
             <section id="endpoints">
-              <h2 className="text-2xl font-bold mb-6">Endpoints</h2>
+              <h2 id="endpoints" className="text-2xl font-bold mb-6">
+                Endpoints
+              </h2>
 
               {/* Resolve Question */}
               <div id="resolve-question" className="mb-8">
-                <h3 className="text-xl font-semibold mb-4 flex items-center">
+                <h3
+                  id="resolve-question"
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
                   <Zap className="h-5 w-5 mr-2 text-primary" />
                   1. Resolve Question
                 </h3>
                 <div className="flex items-center space-x-2 mb-4">
-                  <Badge className="bg-green-100 text-green-800 hover:bg-green-100">POST</Badge>
+                  <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+                    POST
+                  </Badge>
                   <code className="code-inline">/api/resolve</code>
                 </div>
-                
+
                 <Card className="mb-4">
                   <CardContent className="p-6">
                     <p className="text-muted-foreground mb-4">
-                      Resolves a question using multiple AI models and returns consensus results.
+                      Resolves a question using multiple AI models and returns
+                      consensus results.
                     </p>
-                    
-                    <h4 className="font-semibold mb-3">Request Body</h4>
+
+                    <h4 id="request-body" className="font-semibold mb-3">
+                      Request Body
+                    </h4>
                     <CodeBlock
                       code={`{
   "poolId": "string (optional)",
   "question": "string (required, max 2000 chars)",
   "options": ["option1", "option2", "option3", ...] (required, 2-10 options),
-  "grounded_truth": "string (optional, max 500 chars)",
   "questionFileName": "string (optional, max 200 chars)",
   "scheduledAt": "ISO date string (optional, for scheduled requests)"
 }`}
@@ -139,20 +145,23 @@ export const ApiDocumentation = () => {
 
                     <Separator className="my-6" />
 
-                    <h4 className="font-semibold mb-3">Example Request</h4>
+                    <h4 id="example-request" className="font-semibold mb-3">
+                      Example Request
+                    </h4>
                     <CodeBlock
                       code={`{
   "poolId": "pool_123",
   "question": "What is the capital of France?",
   "options": ["London", "Paris", "Berlin", "Madrid"],
-  "grounded_truth": "Paris",
-  "questionFileName": "geography_quiz_001"
+  "questionFileName": "RAIN_pool_123"
 }`}
                     />
 
                     <Separator className="my-6" />
 
-                    <h4 className="font-semibold mb-3">Response</h4>
+                    <h4 id="response" className="font-semibold mb-3">
+                      Response
+                    </h4>
                     <CodeBlock
                       code={`{
   "exa": 1,
@@ -168,95 +177,173 @@ export const ApiDocumentation = () => {
   "gemini_raw": "{\\"answer\\": \\"Paris\\"}",
   "original_question": "What is the capital of France?",
   "formatted_question": "What is the capital of France?",
-  "question_file_name": "geography_quiz_001"
+  "question_file_name": "RAIN_geography_quiz_001"
 }`}
                     />
                   </CardContent>
                 </Card>
               </div>
 
-
-
-            </section>
-
-            {/* Cost Tracking */}
-            <section id="cost-tracking">
-              <h2 className="text-2xl font-bold mb-4">Cost Tracking</h2>
-              <Card>
-                <CardContent className="p-6">
-                  <p className="text-muted-foreground mb-4">
-                    The API tracks costs for each AI model used:
-                  </p>
-                  
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>Exa</span>
-                        <span className="text-sm text-muted-foreground">~$0.001 per request</span>
-                      </div>
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>Perplexity</span>
-                        <span className="text-sm text-muted-foreground">~$0.002 per request</span>
-                      </div>
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>GPT</span>
-                        <span className="text-sm text-muted-foreground">~$0.003 per request</span>
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>Grok</span>
-                        <span className="text-sm text-muted-foreground">~$0.002 per request</span>
-                      </div>
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>Gemini</span>
-                        <span className="text-sm text-muted-foreground">~$0.001 per request</span>
-                      </div>
-                      <div className="flex justify-between items-center p-2 bg-muted/30 rounded">
-                        <span>Operations</span>
-                        <span className="text-sm text-muted-foreground">~$0.001 per request</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="mt-4 p-4 bg-primary/10 rounded-lg">
-                    <p className="text-sm font-medium">
-                      Total cost per resolve request is typically $0.010-0.015
+              {/* Retry Mechanism */}
+              <div id="retry-mechanism" className="mb-8">
+                <h3
+                  id="retry-mechanism"
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
+                  <RefreshCw className="h-5 w-5 mr-2 text-primary" />
+                  2. Retry Mechanism
+                </h3>
+                <Card>
+                  <CardContent className="p-6">
+                    <p className="text-muted-foreground mb-4">
+                      When the consensus result is "No Answer", the system
+                      automatically retries the query with increasing intervals
+                      until a valid answer is received or maximum retries are
+                      reached.
                     </p>
-                  </div>
-                </CardContent>
-              </Card>
-            </section>
 
-            {/* Rate Limits */}
-            <section id="rate-limits">
-              <h2 className="text-2xl font-bold mb-4">Rate Limits</h2>
-              <Card>
-                <CardContent className="p-6">
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
-                      <span>Standard resolve requests</span>
-                      <Badge variant="outline">100 requests/min</Badge>
+                    <div className="bg-blue-50 border-l-4 border-blue-400 p-4 mb-4">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
+                          <RefreshCw className="h-5 w-5 text-blue-400" />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm text-blue-700">
+                            <strong>Progressive Retry Schedule:</strong> If the
+                            response contains <code>"final": "No Answer"</code>,
+                            the system will automatically schedule retries with
+                            increasing delays.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
-                      <span>Scheduled requests</span>
-                      <Badge variant="outline">10 requests/min</Badge>
+
+                    <h4 className="font-semibold mb-3">Retry Schedule</h4>
+                    <div className="space-y-2 mb-4">
+                      <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
+                        <span>1st Retry</span>
+                        <Badge variant="outline">5 minutes</Badge>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
+                        <span>2nd Retry</span>
+                        <Badge variant="outline">30 minutes</Badge>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
+                        <span>3rd Retry</span>
+                        <Badge variant="outline">60 minutes</Badge>
+                      </div>
+                      <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
+                        <span>4th Retry</span>
+                        <Badge variant="outline">3 hours</Badge>
+                      </div>
                     </div>
-                    <div className="flex justify-between items-center p-3 bg-muted/30 rounded">
-                      <span>Analytics queries</span>
-                      <Badge variant="outline">50 requests/min</Badge>
+
+                    <h4 className="font-semibold mb-3">
+                      Retry Response Example
+                    </h4>
+                    <CodeBlock
+                      code={`{
+  "exa": -1,
+  "perplexity": -1,
+  "gpt": -1,
+  "grok": -1,
+  "gemini": -1,
+  "final": "No Answer",
+  "retry_scheduled": true,
+  "retry_count": 1,
+  "retry_at": "2024-01-15T10:05:00.000Z",
+  "message": "No consensus reached. Retry scheduled in 5 minutes."
+}`}
+                    />
+                  </CardContent>
+                </Card>
+              </div>
+
+              {/* File Naming Convention */}
+              <div id="file-naming" className="mb-8">
+                <h3
+                  id="file-naming"
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
+                  <FileText className="h-5 w-5 mr-2 text-primary" />
+                  3. File Naming Convention
+                </h3>
+                <Card>
+                  <CardContent className="p-6">
+                    <p className="text-muted-foreground mb-4">
+                      Users must provide the <code>questionFileName</code>{" "}
+                      parameter in the request body using the RAIN naming
+                      convention for internal analysis purposes.
+                    </p>
+
+                    <div className="bg-orange-50 border-l-4 border-orange-400 p-4 mb-4">
+                      <div className="flex">
+                        <div className="flex-shrink-0">
+                          <FileText className="h-5 w-5 text-orange-400" />
+                        </div>
+                        <div className="ml-3">
+                          <p className="text-sm text-orange-700">
+                            <strong>Required Format:</strong> You must send{" "}
+                            <code>questionFileName</code> as{" "}
+                            <code>RAIN_&#123;&#123;pool_id&#125;&#125;</code> in
+                            your request.
+                          </p>
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+
+                    <h4 className="font-semibold mb-3">Required Format</h4>
+                    <div className="space-y-2 mb-4">
+                      <div className="p-3 bg-muted/30 rounded">
+                        <code>RAIN_&#123;&#123;pool_id&#125;&#125;</code> -
+                        Replace <code>&#123;&#123;pool_id&#125;&#125;</code>{" "}
+                        with your actual pool ID
+                      </div>
+                    </div>
+
+                    <h4 className="font-semibold mb-3">Example Usage</h4>
+                    <CodeBlock
+                      code={`{
+  "poolId": "test-pool-123",
+  "question": "What is the capital of France?",
+  "options": ["London", "Paris", "Berlin", "Madrid"],
+  "questionFileName": "RAIN_test-pool-123"
+}`}
+                      title="Request with questionFileName"
+                    />
+
+                    <h4 className="font-semibold mb-3">File Name Examples</h4>
+                    <div className="space-y-2">
+                      <div className="p-3 bg-muted/30 rounded">
+                        <code>RAIN_pool_123</code> - For pool ID "pool_123"
+                      </div>
+                      <div className="p-3 bg-muted/30 rounded">
+                        <code>RAIN_geography_quiz_001</code> - For pool ID
+                        "geography_quiz_001"
+                      </div>
+                      <div className="p-3 bg-muted/30 rounded">
+                        <code>RAIN_user_session_456</code> - For pool ID
+                        "user_session_456"
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
             </section>
 
             {/* SDK Examples */}
             <section id="sdk-examples">
-              <h2 className="text-2xl font-bold mb-4">SDK Examples</h2>
-              
+              <h2 id="sdk-examples" className="text-2xl font-bold mb-4">
+                SDK Examples
+              </h2>
+
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">JavaScript/Node.js</h3>
+                <h3
+                  id="javascript-example"
+                  className="text-lg font-semibold mb-3"
+                >
+                  JavaScript/Node.js
+                </h3>
                 <CodeBlock
                   code={`const axios = require("axios");
 
@@ -269,12 +356,11 @@ const oracleAPI = axios.create({
 });
 
 // Resolve a question
-async function resolveQuestion(question, options, groundedTruth) {
+async function resolveQuestion(question, options) {
   try {
     const response = await oracleAPI.post("/api/resolve", {
       question,
       options,
-      grounded_truth: groundedTruth,
     });
     return response.data;
   } catch (error) {
@@ -300,7 +386,9 @@ async function getAnalytics(startDate, endDate) {
               </div>
 
               <div className="mb-6">
-                <h3 className="text-lg font-semibold mb-3">Python</h3>
+                <h3 id="python-example" className="text-lg font-semibold mb-3">
+                  Python
+                </h3>
                 <CodeBlock
                   code={`import requests
 import os
@@ -314,15 +402,13 @@ class OracleAPI:
             'Content-Type': 'application/json'
         }
 
-    def resolve_question(self, question, options, grounded_truth=None):
+    def resolve_question(self, question, options):
         """Resolve a question using multiple AI models"""
         url = f"{self.base_url}/api/resolve"
         data = {
             'question': question,
             'options': options
         }
-        if grounded_truth:
-            data['grounded_truth'] = grounded_truth
 
         response = requests.post(url, json=data, headers=self.headers)
         response.raise_for_status()
@@ -346,8 +432,7 @@ api = OracleAPI('https://dev-api.olympus-demo.com', os.getenv('API_TOKEN'))
 
 result = api.resolve_question(
     "What is the capital of France?",
-    ["London", "Paris", "Berlin", "Madrid"],
-    "Paris"
+    ["London", "Paris", "Berlin", "Madrid"]
 )
 print(f"Consensus answer: {result['final']}")`}
                   language="python"
@@ -355,35 +440,124 @@ print(f"Consensus answer: {result['final']}")`}
               </div>
             </section>
 
-            {/* Support */}
-            <section id="support">
-              <h2 className="text-2xl font-bold mb-4">Support</h2>
+            {/* Postman Collection */}
+            <section id="postman-collection">
+              <h2 id="postman-collection" className="text-2xl font-bold mb-4">
+                Postman Collection
+              </h2>
               <Card>
                 <CardContent className="p-6">
                   <p className="text-muted-foreground mb-4">
-                    For API support and questions:
+                    Download our Postman collection to quickly test the Oracle
+                    API endpoints with pre-configured requests.
                   </p>
-                  
-                  <div className="space-y-2">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-sm font-medium">Email:</span>
-                      <a href="mailto:support@prodex.com" className="text-primary hover:underline">
-                        support@prodex.com
-                      </a>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-sm font-medium">Documentation:</span>
-                      <a href="https://docs.prodex.com" className="text-primary hover:underline">
-                        https://docs.prodex.com
-                      </a>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <span className="text-sm font-medium">Status page:</span>
-                      <a href="https://status.prodex.com" className="text-primary hover:underline">
-                        https://status.prodex.com
-                      </a>
+
+                  <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-6">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <FileText className="h-5 w-5 text-green-400" />
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm text-green-700">
+                          <strong>Ready to Use:</strong> Import this collection
+                          directly into Postman to start testing the Oracle API
+                          immediately.
+                        </p>
+                      </div>
                     </div>
                   </div>
+
+                  <div className="flex items-center space-x-4 mb-6">
+                    <a
+                      href="https://limewire.com/d/db6M1#H4Uy4IMgTz"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                    >
+                      <FileText className="h-4 w-4 mr-2" />
+                      Download Postman Collection
+                    </a>
+                    <span className="text-sm text-muted-foreground">
+                      1.15KB • oracle.postman_collection.json
+                    </span>
+                  </div>
+
+                  <h4 className="font-semibold mb-3">Collection Contents</h4>
+                  <div className="space-y-2 mb-6">
+                    <div className="flex items-center space-x-2 p-3 bg-muted/30 rounded">
+                      <span className="text-sm font-medium">
+                        Resolve Question
+                      </span>
+                      <Badge variant="outline">POST /api/resolve</Badge>
+                    </div>
+                  </div>
+
+                  <h4 className="font-semibold mb-3">Example Request</h4>
+                  <CodeBlock
+                    code={`{
+  "poolId": "test-pool-123",
+  "question": "1+1",
+  "options": ["2", "3"]
+}`}
+                    title="Request Body"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">Collection JSON</h4>
+                  <CodeBlock
+                    code={`{
+  "info": {
+    "_postman_id": "baaf8480-4674-491c-b198-4cc9c046d103",
+    "name": "oracle",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "38061292",
+    "_collection_link": "https://solar-flare-802037.postman.co/workspace/My-Workspace~799084a4-dc06-4dc5-8282-030be2993ede/collection/38061292-baaf8480-4674-491c-b198-4cc9c046d103?action=share&source=collection_link&creator=38061292"
+  },
+  "item": [
+    {
+      "name": "resolve",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [
+          {
+            "key": "",
+            "value": "",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\\"poolId\\":\\"test-pool-123\\",\\"question\\":\\"1+1\\",\\"options\\":[\\"2\\",\\"3\\"]}\\n",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "https://dev-api.olympus-demo.com/api/resolve",
+          "protocol": "https",
+          "host": [
+            "dev-api",
+            "olympus-demo",
+            "com"
+          ],
+          "path": [
+            "api",
+            "resolve"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}`}
+                    title="Postman Collection"
+                  />
                 </CardContent>
               </Card>
             </section>
