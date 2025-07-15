@@ -62,22 +62,15 @@ export const ApiDocumentation = () => {
                   <p className="text-muted-foreground mb-4">
                     The Oracle API provides endpoints for resolving questions
                     using multiple AI models (Exa, Perplexity, GPT, Grok, and
-                    Gemini) and managing scheduled requests. The API supports
-                    both immediate resolution and scheduled execution of oracle
-                    queries.
+                    Gemini) to achieve consensus results through AI model
+                    agreement.
                   </p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
                       <Zap className="h-5 w-5 text-primary" />
                       <span className="text-sm font-medium">
                         Multi-model AI
-                      </span>
-                    </div>
-                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
-                      <Clock className="h-5 w-5 text-primary" />
-                      <span className="text-sm font-medium">
-                        Scheduled Requests
                       </span>
                     </div>
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
@@ -137,8 +130,7 @@ export const ApiDocumentation = () => {
   "poolId": "string (optional)",
   "question": "string (required, max 2000 chars)",
   "options": ["option1", "option2", "option3", ...] (required, 2-10 options),
-  "questionFileName": "string (optional, max 200 chars)",
-  "scheduledAt": "ISO date string (optional, for scheduled requests)"
+  "questionFileName": "string (required, RAIN_{{pool_id}} format, max 200 chars)"
 }`}
                       title="Request Schema"
                     />
@@ -484,19 +476,6 @@ async function resolveQuestion(question, options) {
     console.error("Error resolving question:", error.response?.data);
     throw error;
   }
-}
-
-// Get analytics
-async function getAnalytics(startDate, endDate) {
-  try {
-    const response = await oracleAPI.get("/api/questions/analytics", {
-      params: { startDate, endDate },
-    });
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching analytics:", error.response?.data);
-    throw error;
-  }
 }`}
                   language="javascript"
                 />
@@ -528,19 +507,6 @@ class OracleAPI:
         }
 
         response = requests.post(url, json=data, headers=self.headers)
-        response.raise_for_status()
-        return response.json()
-
-    def get_analytics(self, start_date=None, end_date=None):
-        """Get analytics data"""
-        url = f"{self.base_url}/api/questions/analytics"
-        params = {}
-        if start_date:
-            params['startDate'] = start_date.isoformat()
-        if end_date:
-            params['endDate'] = end_date.isoformat()
-
-        response = requests.get(url, params=params, headers=self.headers)
         response.raise_for_status()
         return response.json()
 
