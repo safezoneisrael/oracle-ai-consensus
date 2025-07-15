@@ -78,7 +78,7 @@ export const ApiDocumentation = () => {
             <section id="base-url">
               <h2 className="text-2xl font-bold mb-4">Base URL</h2>
               <CodeBlock
-                code="https://your-domain.com/oracle"
+                code="https://olympus-user.prodex.com/api/"
                 language="text"
               />
             </section>
@@ -452,7 +452,7 @@ export const ApiDocumentation = () => {
                   code={`const axios = require("axios");
 
 const oracleAPI = axios.create({
-  baseURL: "https://your-domain.com/oracle",
+  baseURL: "https://olympus-user.prodex.com/api/",
   headers: {
     Authorization: \`Bearer \${process.env.API_TOKEN}\`,
     "Content-Type": "application/json",
@@ -533,7 +533,7 @@ class OracleAPI:
         return response.json()
 
 # Usage example
-api = OracleAPI('https://your-domain.com/oracle', os.getenv('API_TOKEN'))
+api = OracleAPI('https://olympus-user.prodex.com/api/', os.getenv('API_TOKEN'))
 
 result = api.resolve_question(
     "What is the capital of France?",
@@ -558,20 +558,20 @@ print(f"Consensus answer: {result['final']}")`}
                   <div className="space-y-2">
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium">Email:</span>
-                      <a href="mailto:support@your-domain.com" className="text-primary hover:underline">
-                        support@your-domain.com
+                      <a href="mailto:support@prodex.com" className="text-primary hover:underline">
+                        support@prodex.com
                       </a>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium">Documentation:</span>
-                      <a href="https://docs.your-domain.com" className="text-primary hover:underline">
-                        https://docs.your-domain.com
+                      <a href="https://docs.prodex.com" className="text-primary hover:underline">
+                        https://docs.prodex.com
                       </a>
                     </div>
                     <div className="flex items-center space-x-2">
                       <span className="text-sm font-medium">Status page:</span>
-                      <a href="https://status.your-domain.com" className="text-primary hover:underline">
-                        https://status.your-domain.com
+                      <a href="https://status.prodex.com" className="text-primary hover:underline">
+                        https://status.prodex.com
                       </a>
                     </div>
                   </div>
