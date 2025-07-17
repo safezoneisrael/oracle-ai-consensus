@@ -18,7 +18,7 @@ interface CollapsibleItem {
 
 const MAIN_SECTIONS = [
   "Oracle API Documentation",
-  "🧠 TOMI SuperApp – Translation API",
+  " TOMI SuperApp – Translation API",
 ];
 
 // Define the hierarchical structure for both APIs
@@ -321,7 +321,7 @@ export const TableOfContents = () => {
         {/* TOMI SuperApp Translation API */}
         <div className="space-y-1 mt-6">
           <div className="text-sm font-semibold text-primary mb-2">
-            🧠 TOMI SuperApp – Translation API
+            TOMI SuperApp – Translation API
           </div>
           {TOMI_API_STRUCTURE.map((item) =>
             renderCollapsibleItem(item, "tomi")
