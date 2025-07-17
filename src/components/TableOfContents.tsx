@@ -165,28 +165,24 @@ export const TableOfContents = () => {
 
       const scrollPosition = window.scrollY + 100;
 
-      // Find all headings that are currently in view
-      const visibleHeadings = items
-        .map((item) => {
-          const element = document.getElementById(item.id);
-          if (element && element.offsetTop <= scrollPosition) {
-            return { ...item, offsetTop: element.offsetTop };
+      // Find the heading that's closest to the current scroll position
+      let closestHeading = null;
+      let minDistance = Infinity;
+
+      items.forEach((item) => {
+        const element = document.getElementById(item.id);
+        if (element) {
+          const distance = Math.abs(element.offsetTop - scrollPosition);
+          if (distance < minDistance) {
+            minDistance = distance;
+            closestHeading = item;
           }
-          return null;
-        })
-        .filter(Boolean)
-        .sort((a, b) => b!.offsetTop - a!.offsetTop); // Sort by position, highest first
-
-      // If we have visible headings, select the one with the highest level (most specific)
-      if (visibleHeadings.length > 0) {
-        const mostSpecificHeading = visibleHeadings.reduce((prev, current) => {
-          return current!.level > prev!.level ? current : prev;
-        });
-
-        if (mostSpecificHeading && mostSpecificHeading.id !== activeId) {
-          console.log("Setting active heading to:", mostSpecificHeading.id);
-          setActiveId(mostSpecificHeading.id);
         }
+      });
+
+      if (closestHeading && closestHeading.id !== activeId) {
+        console.log("Setting active heading to:", closestHeading.id);
+        setActiveId(closestHeading.id);
       }
     };
 
