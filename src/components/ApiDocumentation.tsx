@@ -16,6 +16,7 @@ import {
   Activity,
   RefreshCw,
   Languages,
+  Mic,
 } from "lucide-react";
 
 export const ApiDocumentation = () => {
@@ -31,8 +32,7 @@ export const ApiDocumentation = () => {
             <div>
               <h1
                 id="oracle-api-documentation"
-                className="text-3xl font-bold text-primary-foreground"
-              >
+                className="text-3xl font-bold text-primary-foreground">
                 Oracle API Documentation
               </h1>
               <p className="text-primary-foreground/80 mt-2">
@@ -104,8 +104,7 @@ export const ApiDocumentation = () => {
               <div id="resolve-question" className="mb-8">
                 <h3
                   id="resolve-question"
-                  className="text-xl font-semibold mb-4 flex items-center"
-                >
+                  className="text-xl font-semibold mb-4 flex items-center">
                   <Zap className="h-5 w-5 mr-2 text-primary" />
                   1. Resolve Question
                 </h3>
@@ -191,8 +190,7 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-green-50 text-green-700"
-                            >
+                              className="bg-green-50 text-green-700">
                               consensus
                             </Badge>
                             <span className="text-sm">
@@ -202,8 +200,7 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-yellow-50 text-yellow-700"
-                            >
+                              className="bg-yellow-50 text-yellow-700">
                               no_consensus
                             </Badge>
                             <span className="text-sm">
@@ -213,8 +210,7 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-red-50 text-red-700"
-                            >
+                              className="bg-red-50 text-red-700">
                               no_answer
                             </Badge>
                             <span className="text-sm">
@@ -241,8 +237,7 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-red-50 text-red-700"
-                            >
+                              className="bg-red-50 text-red-700">
                               -1
                             </Badge>
                             <span className="text-sm">
@@ -272,8 +267,7 @@ export const ApiDocumentation = () => {
               <div id="retry-mechanism" className="mb-8">
                 <h3
                   id="retry-mechanism"
-                  className="text-xl font-semibold mb-4 flex items-center"
-                >
+                  className="text-xl font-semibold mb-4 flex items-center">
                   <RefreshCw className="h-5 w-5 mr-2 text-primary" />
                   2. Retry Mechanism
                 </h3>
@@ -373,8 +367,7 @@ export const ApiDocumentation = () => {
               <div id="file-naming" className="mb-8">
                 <h3
                   id="file-naming"
-                  className="text-xl font-semibold mb-4 flex items-center"
-                >
+                  className="text-xl font-semibold mb-4 flex items-center">
                   <FileText className="h-5 w-5 mr-2 text-primary" />
                   3. File Naming Convention
                 </h3>
@@ -450,8 +443,7 @@ export const ApiDocumentation = () => {
               <div className="mb-6">
                 <h3
                   id="javascript-example"
-                  className="text-lg font-semibold mb-3"
-                >
+                  className="text-lg font-semibold mb-3">
                   JavaScript/Node.js
                 </h3>
                 <CodeBlock
@@ -566,8 +558,7 @@ else:  # no_answer
                       href="https://limewire.com/d/db6M1#H4Uy4IMgTz"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
-                    >
+                      className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
                       <FileText className="h-4 w-4 mr-2" />
                       Download Postman Collection
                     </a>
@@ -668,8 +659,7 @@ else:  # no_answer
                     <Languages className="h-6 w-6 text-primary" />
                     <h3
                       id="tomi-translation-api"
-                      className="text-xl font-semibold"
-                    >
+                      className="text-xl font-semibold">
                       Translation Endpoint
                     </h3>
                   </div>
@@ -755,8 +745,7 @@ else:  # no_answer
 
                   <h4
                     id="tomi-response-parameters"
-                    className="font-semibold mb-3"
-                  >
+                    className="font-semibold mb-3">
                     Response Parameters
                   </h4>
                   <div className="space-y-4">
@@ -872,6 +861,470 @@ api = TranslationAPI('https://api-test.olympus-demo.com/tomi-server-translate')
 
 translated_text = api.translate_text("Hello, how are you?", "he")
 print(translated_text)  # "שלום, איך אתה?"`}
+                      language="python"
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            </section>
+
+            {/* TOMI SuperApp Audio Transcription API */}
+            <section id="tomi-transcription-overview">
+              <h2
+                id="tomi-transcription-overview"
+                className="text-2xl font-bold mb-6">
+                🎙️ TOMI SuperApp – Audio Transcription API
+              </h2>
+
+              <Card className="mb-6">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <Mic className="h-6 w-6 text-primary" />
+                    <h3
+                      id="tomi-transcription-overview"
+                      className="text-xl font-semibold">
+                      Audio Transcription & Intent Processing
+                    </h3>
+                  </div>
+
+                  <p className="text-muted-foreground mb-6">
+                    Transform audio files into actionable data. This endpoint
+                    transcribes audio using OpenAI's Whisper model, classifies
+                    intent, and processes financial commands with contact and
+                    token information.
+                  </p>
+
+                  <div className="mb-4">
+                    <span className="font-semibold">Base URL:</span>
+                    <code className="ml-2 px-2 py-1 bg-muted rounded text-sm">
+                      https://api-test.olympus-demo.com
+                    </code>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Zap className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Whisper AI Powered
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Activity className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Intent Classification
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Shield className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Financial Processing
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 mb-4">
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+                      POST
+                    </Badge>
+                    <code className="code-inline">
+                      /tomi-server2/transcribe
+                    </code>
+                  </div>
+
+                  <div className="bg-amber-50 border-l-4 border-amber-400 p-4 mb-6">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <FileText className="h-5 w-5 text-amber-400" />
+                      </div>
+                      <div className="ml-3">
+                        <p className="text-sm text-amber-700">
+                          <strong>Supported Audio Formats:</strong> The API
+                          accepts various audio formats including M4A, MP3, WAV,
+                          and other common audio file types. Files are
+                          automatically converted to M4A format for processing.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <h4
+                    id="tomi-transcription-request-body"
+                    className="font-semibold mb-3">
+                    Request Body
+                  </h4>
+                  <p className="text-sm text-muted-foreground mb-3">
+                    The request supports two upload methods:
+                  </p>
+
+                  <div className="mb-4">
+                    <h5 className="font-medium mb-2">
+                      Method 1: FormData with File Upload
+                    </h5>
+                    <CodeBlock
+                      code={`FormData:
+- file: (binary/audio file)
+- contacts: (string) JSON array of contact names
+- tokens: (string) JSON array of token objects`}
+                      title="FormData Request"
+                    />
+                  </div>
+
+                  <div className="mb-4">
+                    <h5 className="font-medium mb-2">
+                      Method 2: React Native URI
+                    </h5>
+                    <CodeBlock
+                      code={`{
+  "uri": "string (file URI)",
+  "type": "string (file type)",
+  "name": "string (file name)",
+  "contacts": "string (JSON array of contact names)",
+  "tokens": "string (JSON array of token objects)"
+}`}
+                      title="React Native Request"
+                    />
+                  </div>
+
+                  <Separator className="my-6" />
+
+                  <h4
+                    id="tomi-transcription-example-request"
+                    className="font-semibold mb-3">
+                    Example Request
+                  </h4>
+                  <CodeBlock
+                    code={`// FormData example
+const formData = new FormData();
+formData.append('file', audioFile);
+formData.append('contacts', JSON.stringify([
+  "Ilan", "Moshe", "Sarah", "Michael", "Daniel", "Emily", 
+  "Jonathan", "Zaia", "Ibrahim", "Feran", "Moshe hogeg", 
+  "Moshe nahmani", "osher lugasy"
+]));
+formData.append('tokens', JSON.stringify([
+  {"name": "Tether USD", "symbol": "USDT"},
+  {"name": "Ethereum", "symbol": "ETH"},
+  {"name": "bitcoin", "symbol": "BTC"},
+  {"name": "USD Coin", "symbol": "USDC"}
+]));`}
+                    title="FormData Example"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4
+                    id="tomi-transcription-response"
+                    className="font-semibold mb-3">
+                    Response
+                  </h4>
+                  <CodeBlock
+                    code={`{
+  "recipient": ["Ilan"],
+  "amount": 1,
+  "currency": "USDT",
+  "network": ["Ethereum"],
+  "convertTo": {
+    "name": "Ethereum",
+    "symbol": "ETH"
+  },
+  "text": "Send one ethereum to Ilan on ethereum chain."
+}`}
+                    title="Response Example"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4
+                    id="tomi-transcription-response-parameters"
+                    className="font-semibold mb-3">
+                    Response Parameters
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">recipient</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Array of recipient names extracted from the audio
+                        transcript, matched against provided contacts.
+                      </p>
+                    </div>
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">amount</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Numeric value representing the amount to transfer,
+                        extracted from the audio.
+                      </p>
+                    </div>
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">currency</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Currency symbol (e.g., USDT, ETH, BTC) identified from
+                        the audio and matched against provided tokens.
+                      </p>
+                    </div>
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">network</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Array of blockchain networks mentioned in the audio
+                        (e.g., Ethereum, Polygon).
+                      </p>
+                    </div>
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">convertTo</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Object containing conversion target currency with name
+                        and symbol properties.
+                      </p>
+                    </div>
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">text</h5>
+                      <p className="text-sm text-muted-foreground">
+                        Original transcribed text from the audio file.
+                      </p>
+                    </div>
+                  </div>
+
+                  <Separator className="my-6" />
+
+                  <h4
+                    id="tomi-transcription-error-responses"
+                    className="font-semibold mb-3">
+                    Error Responses
+                  </h4>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded">
+                      <h5 className="font-medium mb-2 text-red-800">
+                        400 Bad Request
+                      </h5>
+                      <p className="text-sm text-red-700 mb-2">
+                        When no audio file is provided:
+                      </p>
+                      <CodeBlock
+                        code={`{
+  "error": "No audio file provided."
+}`}
+                        language="json"
+                      />
+                    </div>
+                    <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded">
+                      <h5 className="font-medium mb-2 text-red-800">
+                        400 Bad Request
+                      </h5>
+                      <p className="text-sm text-red-700 mb-2">
+                        When audio processing fails:
+                      </p>
+                      <CodeBlock
+                        code={`{
+  "error": "Failed to process audio"
+}`}
+                        language="json"
+                      />
+                    </div>
+                  </div>
+
+                  <Separator className="my-6" />
+
+                  <h4
+                    id="tomi-transcription-sdk-examples"
+                    className="font-semibold mb-3">
+                    SDK Examples
+                  </h4>
+
+                  <div className="mb-6">
+                    <h5 className="text-lg font-semibold mb-3">
+                      JavaScript (Browser)
+                    </h5>
+                    <CodeBlock
+                      code={`// Audio transcription with file upload
+async function transcribeAudio(audioFile, contacts, tokens) {
+  const formData = new FormData();
+  formData.append('file', audioFile);
+  formData.append('contacts', JSON.stringify(contacts));
+  formData.append('tokens', JSON.stringify(tokens));
+
+  try {
+    const response = await fetch('https://api-test.olympus-demo.com/tomi-server2/transcribe', {
+      method: 'POST',
+      body: formData
+    });
+
+    if (!response.ok) {
+      throw new Error(\`HTTP error! status: \${response.status}\`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Transcription error:', error);
+    throw error;
+  }
+}
+
+// Usage example
+const contacts = [
+  "Ilan", "Moshe", "Sarah", "Michael", "Daniel", "Emily",
+  "Jonathan", "Zaia", "Ibrahim", "Feran", "Moshe hogeg",
+  "Moshe nahmani", "osher lugasy"
+];
+
+const tokens = [
+  {"name": "Tether USD", "symbol": "USDT"},
+  {"name": "Ethereum", "symbol": "ETH"},
+  {"name": "bitcoin", "symbol": "BTC"},
+  {"name": "USD Coin", "symbol": "USDC"}
+];
+
+const fileInput = document.getElementById('audioFile');
+const audioFile = fileInput.files[0];
+
+transcribeAudio(audioFile, contacts, tokens)
+  .then(result => {
+    console.log('Transcription result:', result);
+    console.log('Recipient:', result.recipient);
+    console.log('Amount:', result.amount);
+    console.log('Currency:', result.currency);
+  })
+  .catch(error => {
+    console.error('Error:', error);
+  });`}
+                      language="javascript"
+                    />
+                  </div>
+
+                  <div className="mb-6">
+                    <h5 className="text-lg font-semibold mb-3">React Native</h5>
+                    <CodeBlock
+                      code={`import { launchImageLibrary } from 'react-native-image-picker';
+
+const transcribeAudio = async (audioUri, contacts, tokens) => {
+  const formData = new FormData();
+  
+  // For React Native, you can also send URI directly
+  formData.append('uri', audioUri);
+  formData.append('type', 'audio/m4a');
+  formData.append('name', 'recording.m4a');
+  formData.append('contacts', JSON.stringify(contacts));
+  formData.append('tokens', JSON.stringify(tokens));
+
+  try {
+    const response = await fetch('https://api-test.olympus-demo.com/tomi-server2/transcribe', {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Transcription error:', error);
+    throw error;
+  }
+};
+
+// Usage with audio picker
+const pickAndTranscribeAudio = () => {
+  const options = {
+    mediaType: 'mixed',
+    includeBase64: false,
+    maxHeight: 2000,
+    maxWidth: 2000,
+  };
+
+  launchImageLibrary(options, (response) => {
+    if (response.didCancel) {
+      console.log('User cancelled audio picker');
+    } else if (response.error) {
+      console.log('AudioPicker Error: ', response.error);
+    } else {
+      const audioUri = response.assets[0].uri;
+      
+      const contacts = [
+        "Ilan", "Moshe", "Sarah", "Michael", "Daniel"
+      ];
+      
+      const tokens = [
+        {"name": "Tether USD", "symbol": "USDT"},
+        {"name": "Ethereum", "symbol": "ETH"}
+      ];
+      
+      transcribeAudio(audioUri, contacts, tokens)
+        .then(result => {
+          console.log('Transcription result:', result);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+    }
+  });
+};`}
+                      language="javascript"
+                    />
+                  </div>
+
+                  <div className="mb-6">
+                    <h5 className="text-lg font-semibold mb-3">Python</h5>
+                    <CodeBlock
+                      code={`import requests
+import json
+
+class AudioTranscriptionAPI:
+    def __init__(self, base_url):
+        self.base_url = base_url
+
+    def transcribe_audio(self, audio_file_path, contacts, tokens):
+        """Transcribe audio file and extract financial intent"""
+        url = f"{self.base_url}/tomi-server2/transcribe"
+        
+        files = {
+            'file': open(audio_file_path, 'rb')
+        }
+        
+        data = {
+            'contacts': json.dumps(contacts),
+            'tokens': json.dumps(tokens)
+        }
+
+        try:
+            response = requests.post(url, files=files, data=data)
+            response.raise_for_status()
+            return response.json()
+        except requests.exceptions.RequestException as e:
+            print(f"Request error: {e}")
+            raise
+        finally:
+            files['file'].close()
+
+# Usage example
+api = AudioTranscriptionAPI('https://api-test.olympus-demo.com')
+
+contacts = [
+    "Ilan", "Moshe", "Sarah", "Michael", "Daniel", "Emily",
+    "Jonathan", "Zaia", "Ibrahim", "Feran", "Moshe hogeg",
+    "Moshe nahmani", "osher lugasy"
+]
+
+tokens = [
+    {"name": "Tether USD", "symbol": "USDT"},
+    {"name": "Ethereum", "symbol": "ETH"},
+    {"name": "bitcoin", "symbol": "BTC"},
+    {"name": "USD Coin", "symbol": "USDC"}
+]
+
+try:
+    result = api.transcribe_audio('audio_recording.m4a', contacts, tokens)
+    
+    print(f"Transcribed text: {result['text']}")
+    print(f"Recipient: {result['recipient']}")
+    print(f"Amount: {result['amount']}")
+    print(f"Currency: {result['currency']}")
+    print(f"Network: {result['network']}")
+    
+    if 'convertTo' in result:
+        print(f"Convert to: {result['convertTo']['name']} ({result['convertTo']['symbol']})")
+        
+except Exception as e:
+    print(f"Error: {e}")`}
                       language="python"
                     />
                   </div>

@@ -121,12 +121,60 @@ const TOMI_API_STRUCTURE: CollapsibleItem[] = [
   },
 ];
 
+const TOMI_TRANSCRIPTION_API_STRUCTURE: CollapsibleItem[] = [
+  {
+    id: "tomi-transcription-overview",
+    title: "Overview",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-request-body",
+    title: "Request Body",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-example-request",
+    title: "Example Request",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-response",
+    title: "Response",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-response-parameters",
+    title: "Response Parameters",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-error-responses",
+    title: "Error Responses",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-transcription-sdk-examples",
+    title: "SDK Examples",
+    children: [],
+    isCollapsed: false,
+  },
+];
+
 export const TableOfContents = () => {
   const [activeId, setActiveId] = useState<string>("");
   const [oracleCollapsed, setOracleCollapsed] = useState<{
     [key: string]: boolean;
   }>({});
   const [tomiCollapsed, setTomiCollapsed] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [tomiTranscriptionCollapsed, setTomiTranscriptionCollapsed] = useState<{
     [key: string]: boolean;
   }>({});
 
@@ -224,14 +272,22 @@ export const TableOfContents = () => {
     }
   };
 
-  const toggleCollapse = (apiType: "oracle" | "tomi", itemId: string) => {
+  const toggleCollapse = (
+    apiType: "oracle" | "tomi" | "tomiTranscription",
+    itemId: string
+  ) => {
     if (apiType === "oracle") {
       setOracleCollapsed((prev) => ({
         ...prev,
         [itemId]: !prev[itemId],
       }));
-    } else {
+    } else if (apiType === "tomi") {
       setTomiCollapsed((prev) => ({
+        ...prev,
+        [itemId]: !prev[itemId],
+      }));
+    } else {
+      setTomiTranscriptionCollapsed((prev) => ({
         ...prev,
         [itemId]: !prev[itemId],
       }));
@@ -240,11 +296,15 @@ export const TableOfContents = () => {
 
   const renderCollapsibleItem = (
     item: CollapsibleItem,
-    apiType: "oracle" | "tomi",
+    apiType: "oracle" | "tomi" | "tomiTranscription",
     isMainSection: boolean = false
   ) => {
     const isCollapsed =
-      apiType === "oracle" ? oracleCollapsed[item.id] : tomiCollapsed[item.id];
+      apiType === "oracle"
+        ? oracleCollapsed[item.id]
+        : apiType === "tomi"
+        ? tomiCollapsed[item.id]
+        : tomiTranscriptionCollapsed[item.id];
 
     const hasChildren = item.children && item.children.length > 0;
     const isActive = activeId === item.id;
@@ -261,8 +321,7 @@ export const TableOfContents = () => {
               onClick={() => toggleCollapse(apiType, item.id)}
               className={`p-1 transition-transform duration-200 ${
                 isCollapsed ? "" : "rotate-90"
-              }`}
-            >
+              }`}>
               <ChevronRight className="h-3 w-3 text-muted-foreground" />
             </button>
           )}
@@ -274,8 +333,7 @@ export const TableOfContents = () => {
                 : isActive && !hasActiveChild
                 ? "text-primary font-medium border-l-2 border-primary pl-3"
                 : "text-muted-foreground pl-3"
-            }`}
-          >
+            }`}>
             {item.title}
           </button>
         </div>
@@ -291,8 +349,7 @@ export const TableOfContents = () => {
                     ? "text-primary font-medium border-l-2 border-primary pl-3"
                     : "text-muted-foreground pl-3"
                 }`}
-                style={{ marginLeft: `${(child.level - 3) * 12}px` }}
-              >
+                style={{ marginLeft: `${(child.level - 3) * 12}px` }}>
                 {child.title}
               </button>
             ))}
@@ -325,6 +382,16 @@ export const TableOfContents = () => {
           </div>
           {TOMI_API_STRUCTURE.map((item) =>
             renderCollapsibleItem(item, "tomi")
+          )}
+        </div>
+
+        {/* TOMI SuperApp Audio Transcription API */}
+        <div className="space-y-1 mt-6">
+          <div className="text-sm font-semibold text-primary mb-2">
+            TOMI SuperApp – Audio Transcription API
+          </div>
+          {TOMI_TRANSCRIPTION_API_STRUCTURE.map((item) =>
+            renderCollapsibleItem(item, "tomiTranscription")
           )}
         </div>
       </nav>
