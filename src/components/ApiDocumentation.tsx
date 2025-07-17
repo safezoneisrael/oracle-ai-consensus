@@ -15,6 +15,7 @@ import {
   Trash2,
   Activity,
   RefreshCw,
+  Languages,
 } from "lucide-react";
 
 export const ApiDocumentation = () => {
@@ -651,6 +652,204 @@ else:  # no_answer
 }`}
                     title="Postman Collection"
                   />
+                </CardContent>
+              </Card>
+            </section>
+
+            {/* TOMI SuperApp Translation API */}
+            <section id="tomi-translation-api">
+              <h2 id="tomi-translation-api" className="text-2xl font-bold mb-6">
+                🧠 TOMI SuperApp – Translation API
+              </h2>
+
+              <Card className="mb-6">
+                <CardContent className="p-6">
+                  <div className="flex items-center space-x-2 mb-4">
+                    <Languages className="h-6 w-6 text-primary" />
+                    <h3 className="text-xl font-semibold">
+                      Translation Endpoint
+                    </h3>
+                  </div>
+
+                  <p className="text-muted-foreground mb-6">
+                    Welcome to our simple and powerful translation endpoint.
+                    Just POST with a JSON body and get back a clean, translated
+                    string — no TTS, no speech input, just pure AI translation.
+                  </p>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Zap className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Powered by GPT
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Settings className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Easy to integrate
+                      </span>
+                    </div>
+                    <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
+                      <Shield className="h-5 w-5 text-primary" />
+                      <span className="text-sm font-medium">
+                        Ready for production
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2 mb-4">
+                    <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
+                      POST
+                    </Badge>
+                    <code className="code-inline">/api/translate</code>
+                  </div>
+
+                  <h4 className="font-semibold mb-3">Request Body</h4>
+                  <CodeBlock
+                    code={`{
+  "text": "string (required)",
+  "lang": "string (required, language code)"
+}`}
+                    title="Request Schema"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">Example Request</h4>
+                  <CodeBlock
+                    code={`{
+  "text": "Hello, how are you?",
+  "lang": "he"
+}`}
+                    title="Example Request"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">Response</h4>
+                  <CodeBlock
+                    code={`{
+  "translatedText": "שלום, איך אתה?"
+}`}
+                    title="Response"
+                  />
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">Response Parameters</h4>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-muted/30 rounded-lg">
+                      <h5 className="font-medium mb-2">translatedText</h5>
+                      <p className="text-sm text-muted-foreground">
+                        The translated text in the requested language. Returns
+                        the original text if translation fails.
+                      </p>
+                    </div>
+                  </div>
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">Error Responses</h4>
+                  <div className="space-y-4">
+                    <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded">
+                      <h5 className="font-medium mb-2 text-red-800">
+                        400 Bad Request
+                      </h5>
+                      <p className="text-sm text-red-700 mb-2">
+                        When text or language code is missing:
+                      </p>
+                      <CodeBlock
+                        code={`{
+  "message": "Text and language code are required."
+}`}
+                        language="json"
+                      />
+                    </div>
+                    <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded">
+                      <h5 className="font-medium mb-2 text-red-800">
+                        500 Internal Server Error
+                      </h5>
+                      <p className="text-sm text-red-700 mb-2">
+                        When translation service fails:
+                      </p>
+                      <CodeBlock
+                        code={`{
+  "message": "Server error during translation."
+}`}
+                        language="json"
+                      />
+                    </div>
+                  </div>
+
+                  <Separator className="my-6" />
+
+                  <h4 className="font-semibold mb-3">SDK Examples</h4>
+
+                  <div className="mb-6">
+                    <h5 className="text-lg font-semibold mb-3">JavaScript</h5>
+                    <CodeBlock
+                      code={`// Translation API client
+const translateAPI = axios.create({
+  baseURL: 'https://dev-api.olympus-demo.com',
+  headers: {
+    'Content-Type': 'application/json'
+  }
+});
+
+// Translate text
+async function translateText(text, targetLanguage) {
+  try {
+    const response = await translateAPI.post("/api/translate", {
+      text,
+      lang: targetLanguage
+    });
+    return response.data.translatedText;
+  } catch (error) {
+    console.error("Translation error:", error.response?.data);
+    throw error;
+  }
+}
+
+// Usage example
+const translatedText = await translateText("Hello, how are you?", "he");
+console.log(translatedText); // "שלום, איך אתה?"`}
+                      language="javascript"
+                    />
+                  </div>
+
+                  <div className="mb-6">
+                    <h5 className="text-lg font-semibold mb-3">Python</h5>
+                    <CodeBlock
+                      code={`import requests
+
+class TranslationAPI:
+    def __init__(self, base_url):
+        self.base_url = base_url
+        self.headers = {
+            'Content-Type': 'application/json'
+        }
+
+    def translate_text(self, text, target_language):
+        """Translate text to target language"""
+        url = f"{self.base_url}/api/translate"
+        data = {
+            'text': text,
+            'lang': target_language
+        }
+
+        response = requests.post(url, json=data, headers=self.headers)
+        response.raise_for_status()
+        return response.json()['translatedText']
+
+# Usage example
+api = TranslationAPI('https://dev-api.olympus-demo.com')
+
+translated_text = api.translate_text("Hello, how are you?", "he")
+print(translated_text)  # "שלום, איך אתה?"`}
+                      language="python"
+                    />
+                  </div>
                 </CardContent>
               </Card>
             </section>

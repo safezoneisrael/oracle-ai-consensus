@@ -6,6 +6,11 @@ interface TOCItem {
   level: number;
 }
 
+const MAIN_SECTIONS = [
+  "Oracle API Documentation",
+  "🧠 TOMI SuperApp – Translation API",
+];
+
 export const TableOfContents = () => {
   const [activeId, setActiveId] = useState<string>("");
   const [tocItems, setTocItems] = useState<TOCItem[]>([]);
@@ -116,20 +121,25 @@ export const TableOfContents = () => {
         {tocItems.length === 0 ? (
           <div className="text-sm text-muted-foreground">No sections found</div>
         ) : (
-          tocItems.map((item) => (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
-              className={`block w-full text-left text-sm transition-colors hover:text-primary ${
-                activeId === item.id
-                  ? "text-primary font-medium border-l-2 border-primary pl-3"
-                  : "text-muted-foreground pl-3"
-              }`}
-              style={{ marginLeft: `${(item.level - 1) * 12}px` }}
-            >
-              {item.title}
-            </button>
-          ))
+          tocItems.map((item) => {
+            const isMain = MAIN_SECTIONS.includes(item.title);
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`block w-full text-left text-sm transition-colors hover:text-primary ${
+                  isMain
+                    ? "text-white bg-gradient-to-r from-primary to-blue-500 font-bold rounded px-2 py-1 my-1 shadow"
+                    : activeId === item.id
+                    ? "text-primary font-medium border-l-2 border-primary pl-3"
+                    : "text-muted-foreground pl-3"
+                }`}
+                style={{ marginLeft: `${(item.level - 1) * 12}px` }}
+              >
+                {item.title}
+              </button>
+            );
+          })
         )}
       </nav>
     </div>
