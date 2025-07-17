@@ -32,7 +32,8 @@ export const ApiDocumentation = () => {
             <div>
               <h1
                 id="oracle-api-documentation"
-                className="text-3xl font-bold text-primary-foreground">
+                className="text-3xl font-bold text-primary-foreground"
+              >
                 Oracle API Documentation
               </h1>
               <p className="text-primary-foreground/80 mt-2">
@@ -104,7 +105,8 @@ export const ApiDocumentation = () => {
               <div id="resolve-question" className="mb-8">
                 <h3
                   id="resolve-question"
-                  className="text-xl font-semibold mb-4 flex items-center">
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
                   <Zap className="h-5 w-5 mr-2 text-primary" />
                   1. Resolve Question
                 </h3>
@@ -190,7 +192,8 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-green-50 text-green-700">
+                              className="bg-green-50 text-green-700"
+                            >
                               consensus
                             </Badge>
                             <span className="text-sm">
@@ -200,7 +203,8 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-yellow-50 text-yellow-700">
+                              className="bg-yellow-50 text-yellow-700"
+                            >
                               no_consensus
                             </Badge>
                             <span className="text-sm">
@@ -210,7 +214,8 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-red-50 text-red-700">
+                              className="bg-red-50 text-red-700"
+                            >
                               no_answer
                             </Badge>
                             <span className="text-sm">
@@ -237,7 +242,8 @@ export const ApiDocumentation = () => {
                           <div className="flex items-center space-x-2">
                             <Badge
                               variant="outline"
-                              className="bg-red-50 text-red-700">
+                              className="bg-red-50 text-red-700"
+                            >
                               -1
                             </Badge>
                             <span className="text-sm">
@@ -267,7 +273,8 @@ export const ApiDocumentation = () => {
               <div id="retry-mechanism" className="mb-8">
                 <h3
                   id="retry-mechanism"
-                  className="text-xl font-semibold mb-4 flex items-center">
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
                   <RefreshCw className="h-5 w-5 mr-2 text-primary" />
                   2. Retry Mechanism
                 </h3>
@@ -320,7 +327,7 @@ export const ApiDocumentation = () => {
                       </div>
                     </div>
 
-                    <h4 className="font-semibold mb-3">Response Examples</h4>
+                    <h4 className="font-semibold mb-3">Response Examples </h4>
 
                     <h5 className="font-medium mb-2">
                       Automatic Retry (no_answer)
@@ -367,7 +374,8 @@ export const ApiDocumentation = () => {
               <div id="file-naming" className="mb-8">
                 <h3
                   id="file-naming"
-                  className="text-xl font-semibold mb-4 flex items-center">
+                  className="text-xl font-semibold mb-4 flex items-center"
+                >
                   <FileText className="h-5 w-5 mr-2 text-primary" />
                   3. File Naming Convention
                 </h3>
@@ -443,7 +451,8 @@ export const ApiDocumentation = () => {
               <div className="mb-6">
                 <h3
                   id="javascript-example"
-                  className="text-lg font-semibold mb-3">
+                  className="text-lg font-semibold mb-3"
+                >
                   JavaScript/Node.js
                 </h3>
                 <CodeBlock
@@ -558,7 +567,8 @@ else:  # no_answer
                       href="https://limewire.com/d/db6M1#H4Uy4IMgTz"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors">
+                      className="inline-flex items-center px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors"
+                    >
                       <FileText className="h-4 w-4 mr-2" />
                       Download Postman Collection
                     </a>
@@ -659,7 +669,8 @@ else:  # no_answer
                     <Languages className="h-6 w-6 text-primary" />
                     <h3
                       id="tomi-translation-api"
-                      className="text-xl font-semibold">
+                      className="text-xl font-semibold"
+                    >
                       Translation Endpoint
                     </h3>
                   </div>
@@ -745,7 +756,8 @@ else:  # no_answer
 
                   <h4
                     id="tomi-response-parameters"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Response Parameters
                   </h4>
                   <div className="space-y-4">
@@ -872,7 +884,8 @@ print(translated_text)  # "שלום, איך אתה?"`}
             <section id="tomi-transcription-overview">
               <h2
                 id="tomi-transcription-overview"
-                className="text-2xl font-bold mb-6">
+                className="text-2xl font-bold mb-6"
+              >
                 🎙️ TOMI SuperApp – Audio Transcription API
               </h2>
 
@@ -882,7 +895,8 @@ print(translated_text)  # "שלום, איך אתה?"`}
                     <Mic className="h-6 w-6 text-primary" />
                     <h3
                       id="tomi-transcription-overview"
-                      className="text-xl font-semibold">
+                      className="text-xl font-semibold"
+                    >
                       Audio Transcription & Intent Processing
                     </h3>
                   </div>
@@ -949,7 +963,8 @@ print(translated_text)  # "שלום, איך אתה?"`}
 
                   <h4
                     id="tomi-transcription-request-body"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Request Body
                   </h4>
                   <p className="text-sm text-muted-foreground mb-3">
@@ -989,7 +1004,8 @@ print(translated_text)  # "שלום, איך אתה?"`}
 
                   <h4
                     id="tomi-transcription-example-request"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Example Request
                   </h4>
                   <CodeBlock
@@ -1014,7 +1030,8 @@ formData.append('tokens', JSON.stringify([
 
                   <h4
                     id="tomi-transcription-response"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Response
                   </h4>
                   <CodeBlock
@@ -1036,7 +1053,8 @@ formData.append('tokens', JSON.stringify([
 
                   <h4
                     id="tomi-transcription-response-parameters"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Response Parameters
                   </h4>
                   <div className="space-y-4">
@@ -1087,7 +1105,8 @@ formData.append('tokens', JSON.stringify([
 
                   <h4
                     id="tomi-transcription-error-responses"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     Error Responses
                   </h4>
                   <div className="space-y-4">
@@ -1125,7 +1144,8 @@ formData.append('tokens', JSON.stringify([
 
                   <h4
                     id="tomi-transcription-sdk-examples"
-                    className="font-semibold mb-3">
+                    className="font-semibold mb-3"
+                  >
                     SDK Examples
                   </h4>
 
