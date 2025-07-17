@@ -650,7 +650,7 @@ else:  # no_answer
             {/* TOMI SuperApp Translation API */}
             <section id="tomi-translation-api">
               <h2 id="tomi-translation-api" className="text-2xl font-bold mb-6">
-                🧠 TOMI SuperApp – Translation API
+                TOMI SuperApp – Translation API
               </h2>
 
               <Card className="mb-6">
