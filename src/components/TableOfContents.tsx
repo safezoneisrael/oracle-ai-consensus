@@ -1,9 +1,19 @@
 import { useState, useEffect } from "react";
+import { ChevronRight } from "lucide-react";
 
 interface TOCItem {
   id: string;
   title: string;
   level: number;
+  children?: TOCItem[];
+  isCollapsed?: boolean;
+}
+
+interface CollapsibleItem {
+  id: string;
+  title: string;
+  children: TOCItem[];
+  isCollapsed: boolean;
 }
 
 const MAIN_SECTIONS = [
@@ -11,13 +21,117 @@ const MAIN_SECTIONS = [
   "🧠 TOMI SuperApp – Translation API",
 ];
 
+// Define the hierarchical structure for both APIs
+const ORACLE_API_STRUCTURE: CollapsibleItem[] = [
+  {
+    id: "overview",
+    title: "Overview",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "base-url",
+    title: "Base URL",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "endpoints",
+    title: "Endpoints",
+    children: [
+      { id: "resolve-question", title: "Resolve Question", level: 3 },
+      { id: "request-body", title: "Request Body", level: 4 },
+      { id: "example-request", title: "Example Request", level: 4 },
+      { id: "response", title: "Response", level: 4 },
+      { id: "response-parameters", title: "Response Parameters", level: 4 },
+    ],
+    isCollapsed: false,
+  },
+  {
+    id: "retry-mechanism",
+    title: "Retry Mechanism",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "file-naming",
+    title: "File Naming Convention",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "sdk-examples",
+    title: "SDK Examples",
+    children: [
+      { id: "javascript-example", title: "JavaScript/Node.js", level: 3 },
+      { id: "python-example", title: "Python", level: 3 },
+    ],
+    isCollapsed: false,
+  },
+  {
+    id: "postman-collection",
+    title: "Postman Collection",
+    children: [],
+    isCollapsed: false,
+  },
+];
+
+const TOMI_API_STRUCTURE: CollapsibleItem[] = [
+  {
+    id: "tomi-translation-api",
+    title: "Overview",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-request-body",
+    title: "Request Body",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-example-request",
+    title: "Example Request",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-response",
+    title: "Response",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-response-parameters",
+    title: "Response Parameters",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "error-responses",
+    title: "Error Responses",
+    children: [],
+    isCollapsed: false,
+  },
+  {
+    id: "tomi-sdk-examples",
+    title: "SDK Examples",
+    children: [],
+    isCollapsed: false,
+  },
+];
+
 export const TableOfContents = () => {
   const [activeId, setActiveId] = useState<string>("");
-  const [tocItems, setTocItems] = useState<TOCItem[]>([]);
+  const [oracleCollapsed, setOracleCollapsed] = useState<{
+    [key: string]: boolean;
+  }>({});
+  const [tomiCollapsed, setTomiCollapsed] = useState<{
+    [key: string]: boolean;
+  }>({});
 
   useEffect(() => {
     const findHeadings = () => {
-      // Simple approach: find all headings with IDs
       const headings = document.querySelectorAll(
         "h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]"
       );
@@ -33,14 +147,11 @@ export const TableOfContents = () => {
         .filter((item) => item.title && item.id);
 
       console.log("Processed headings:", items);
-      setTocItems(items);
       return items;
     };
 
-    // Try to find headings immediately
     let items = findHeadings();
 
-    // If no headings found, try again after a short delay
     if (items.length === 0) {
       console.log("No headings found initially, retrying...");
       const timer = setTimeout(() => {
@@ -54,25 +165,33 @@ export const TableOfContents = () => {
 
       const scrollPosition = window.scrollY + 100;
 
-      // Find the current section
-      let currentHeading = null;
+      // Find all headings that are currently in view
+      const visibleHeadings = items
+        .map((item) => {
+          const element = document.getElementById(item.id);
+          if (element && element.offsetTop <= scrollPosition) {
+            return { ...item, offsetTop: element.offsetTop };
+          }
+          return null;
+        })
+        .filter(Boolean)
+        .sort((a, b) => b!.offsetTop - a!.offsetTop); // Sort by position, highest first
 
-      for (let i = items.length - 1; i >= 0; i--) {
-        const element = document.getElementById(items[i].id);
-        if (element && element.offsetTop <= scrollPosition) {
-          currentHeading = items[i];
-          break;
+      // If we have visible headings, select the one with the highest level (most specific)
+      if (visibleHeadings.length > 0) {
+        const mostSpecificHeading = visibleHeadings.reduce((prev, current) => {
+          return current!.level > prev!.level ? current : prev;
+        });
+
+        if (mostSpecificHeading && mostSpecificHeading.id !== activeId) {
+          console.log("Setting active heading to:", mostSpecificHeading.id);
+          setActiveId(mostSpecificHeading.id);
         }
-      }
-
-      if (currentHeading && currentHeading.id !== activeId) {
-        console.log("Setting active heading to:", currentHeading.id);
-        setActiveId(currentHeading.id);
       }
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initial call
+    handleScroll();
 
     return () => window.removeEventListener("scroll", handleScroll);
   }, [activeId]);
@@ -84,7 +203,6 @@ export const TableOfContents = () => {
     if (element) {
       console.log("Element found, scrolling...");
 
-      // Calculate the target position
       const headerHeight = 80;
       const elementPosition = element.offsetTop - headerHeight;
 
@@ -95,21 +213,93 @@ export const TableOfContents = () => {
         elementPosition
       );
 
-      // Scroll to the element
       window.scrollTo({
         top: elementPosition,
         behavior: "smooth",
       });
 
-      // Update active state immediately
       setActiveId(id);
     } else {
       console.log("Element not found for ID:", id);
-      console.log(
-        "Available elements:",
-        tocItems.map((item) => item.id)
-      );
     }
+  };
+
+  const toggleCollapse = (apiType: "oracle" | "tomi", itemId: string) => {
+    if (apiType === "oracle") {
+      setOracleCollapsed((prev) => ({
+        ...prev,
+        [itemId]: !prev[itemId],
+      }));
+    } else {
+      setTomiCollapsed((prev) => ({
+        ...prev,
+        [itemId]: !prev[itemId],
+      }));
+    }
+  };
+
+  const renderCollapsibleItem = (
+    item: CollapsibleItem,
+    apiType: "oracle" | "tomi",
+    isMainSection: boolean = false
+  ) => {
+    const isCollapsed =
+      apiType === "oracle" ? oracleCollapsed[item.id] : tomiCollapsed[item.id];
+
+    const hasChildren = item.children && item.children.length > 0;
+    const isActive = activeId === item.id;
+
+    // Check if any child is active to prevent parent highlighting
+    const hasActiveChild =
+      hasChildren && item.children.some((child) => activeId === child.id);
+
+    return (
+      <div key={item.id} className="space-y-1">
+        <div className="flex items-center">
+          {hasChildren && (
+            <button
+              onClick={() => toggleCollapse(apiType, item.id)}
+              className={`p-1 transition-transform duration-200 ${
+                isCollapsed ? "" : "rotate-90"
+              }`}
+            >
+              <ChevronRight className="h-3 w-3 text-muted-foreground" />
+            </button>
+          )}
+          <button
+            onClick={() => scrollToSection(item.id)}
+            className={`flex-1 text-left text-sm transition-colors hover:text-primary ${
+              isMainSection
+                ? "text-white bg-gradient-to-r from-primary to-blue-500 font-bold rounded px-2 py-1 my-1 shadow"
+                : isActive && !hasActiveChild
+                ? "text-primary font-medium border-l-2 border-primary pl-3"
+                : "text-muted-foreground pl-3"
+            }`}
+          >
+            {item.title}
+          </button>
+        </div>
+
+        {hasChildren && !isCollapsed && (
+          <div className="ml-4 space-y-1">
+            {item.children.map((child) => (
+              <button
+                key={child.id}
+                onClick={() => scrollToSection(child.id)}
+                className={`block w-full text-left text-sm transition-colors hover:text-primary ${
+                  activeId === child.id
+                    ? "text-primary font-medium border-l-2 border-primary pl-3"
+                    : "text-muted-foreground pl-3"
+                }`}
+                style={{ marginLeft: `${(child.level - 3) * 12}px` }}
+              >
+                {child.title}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+    );
   };
 
   return (
@@ -117,30 +307,26 @@ export const TableOfContents = () => {
       <div className="text-sm font-semibold mb-4 text-foreground">
         On this page
       </div>
-      <nav className="space-y-1">
-        {tocItems.length === 0 ? (
-          <div className="text-sm text-muted-foreground">No sections found</div>
-        ) : (
-          tocItems.map((item) => {
-            const isMain = MAIN_SECTIONS.includes(item.title);
-            return (
-              <button
-                key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`block w-full text-left text-sm transition-colors hover:text-primary ${
-                  isMain
-                    ? "text-white bg-gradient-to-r from-primary to-blue-500 font-bold rounded px-2 py-1 my-1 shadow"
-                    : activeId === item.id
-                    ? "text-primary font-medium border-l-2 border-primary pl-3"
-                    : "text-muted-foreground pl-3"
-                }`}
-                style={{ marginLeft: `${(item.level - 1) * 12}px` }}
-              >
-                {item.title}
-              </button>
-            );
-          })
-        )}
+      <nav className="space-y-2">
+        {/* Oracle API Documentation */}
+        <div className="space-y-1">
+          <div className="text-sm font-semibold text-primary mb-2">
+            Oracle API Documentation
+          </div>
+          {ORACLE_API_STRUCTURE.map((item) =>
+            renderCollapsibleItem(item, "oracle")
+          )}
+        </div>
+
+        {/* TOMI SuperApp Translation API */}
+        <div className="space-y-1 mt-6">
+          <div className="text-sm font-semibold text-primary mb-2">
+            🧠 TOMI SuperApp – Translation API
+          </div>
+          {TOMI_API_STRUCTURE.map((item) =>
+            renderCollapsibleItem(item, "tomi")
+          )}
+        </div>
       </nav>
     </div>
   );

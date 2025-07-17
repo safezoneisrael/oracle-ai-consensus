@@ -666,7 +666,10 @@ else:  # no_answer
                 <CardContent className="p-6">
                   <div className="flex items-center space-x-2 mb-4">
                     <Languages className="h-6 w-6 text-primary" />
-                    <h3 className="text-xl font-semibold">
+                    <h3
+                      id="tomi-translation-api"
+                      className="text-xl font-semibold"
+                    >
                       Translation Endpoint
                     </h3>
                   </div>
@@ -676,6 +679,13 @@ else:  # no_answer
                     Just POST with a JSON body and get back a clean, translated
                     string — no TTS, no speech input, just pure AI translation.
                   </p>
+
+                  <div className="mb-4">
+                    <span className="font-semibold">Base URL:</span>
+                    <code className="ml-2 px-2 py-1 bg-muted rounded text-sm">
+                      https://api-test.olympus-demo.com
+                    </code>
+                  </div>
 
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                     <div className="flex items-center space-x-2 p-3 bg-muted/50 rounded-lg">
@@ -702,10 +712,12 @@ else:  # no_answer
                     <Badge className="bg-green-100 text-green-800 hover:bg-green-100">
                       POST
                     </Badge>
-                    <code className="code-inline">/api/translate</code>
+                    <code className="code-inline">/tomi-server-translate</code>
                   </div>
 
-                  <h4 className="font-semibold mb-3">Request Body</h4>
+                  <h4 id="tomi-request-body" className="font-semibold mb-3">
+                    Request Body
+                  </h4>
                   <CodeBlock
                     code={`{
   "text": "string (required)",
@@ -716,7 +728,9 @@ else:  # no_answer
 
                   <Separator className="my-6" />
 
-                  <h4 className="font-semibold mb-3">Example Request</h4>
+                  <h4 id="tomi-example-request" className="font-semibold mb-3">
+                    Example Request
+                  </h4>
                   <CodeBlock
                     code={`{
   "text": "Hello, how are you?",
@@ -727,7 +741,9 @@ else:  # no_answer
 
                   <Separator className="my-6" />
 
-                  <h4 className="font-semibold mb-3">Response</h4>
+                  <h4 id="tomi-response" className="font-semibold mb-3">
+                    Response
+                  </h4>
                   <CodeBlock
                     code={`{
   "translatedText": "שלום, איך אתה?"
@@ -737,7 +753,12 @@ else:  # no_answer
 
                   <Separator className="my-6" />
 
-                  <h4 className="font-semibold mb-3">Response Parameters</h4>
+                  <h4
+                    id="tomi-response-parameters"
+                    className="font-semibold mb-3"
+                  >
+                    Response Parameters
+                  </h4>
                   <div className="space-y-4">
                     <div className="p-4 bg-muted/30 rounded-lg">
                       <h5 className="font-medium mb-2">translatedText</h5>
@@ -750,7 +771,9 @@ else:  # no_answer
 
                   <Separator className="my-6" />
 
-                  <h4 className="font-semibold mb-3">Error Responses</h4>
+                  <h4 id="error-responses" className="font-semibold mb-3">
+                    Error Responses
+                  </h4>
                   <div className="space-y-4">
                     <div className="p-4 bg-red-50 border-l-4 border-red-400 rounded">
                       <h5 className="font-medium mb-2 text-red-800">
@@ -784,14 +807,16 @@ else:  # no_answer
 
                   <Separator className="my-6" />
 
-                  <h4 className="font-semibold mb-3">SDK Examples</h4>
+                  <h4 id="tomi-sdk-examples" className="font-semibold mb-3">
+                    SDK Examples
+                  </h4>
 
                   <div className="mb-6">
                     <h5 className="text-lg font-semibold mb-3">JavaScript</h5>
                     <CodeBlock
                       code={`// Translation API client
 const translateAPI = axios.create({
-  baseURL: 'https://dev-api.olympus-demo.com',
+  baseURL: 'https://api-test.olympus-demo.com/tomi-server-translate',
   headers: {
     'Content-Type': 'application/json'
   }
@@ -843,7 +868,7 @@ class TranslationAPI:
         return response.json()['translatedText']
 
 # Usage example
-api = TranslationAPI('https://dev-api.olympus-demo.com')
+api = TranslationAPI('https://api-test.olympus-demo.com/tomi-server-translate')
 
 translated_text = api.translate_text("Hello, how are you?", "he")
 print(translated_text)  # "שלום, איך אתה?"`}
